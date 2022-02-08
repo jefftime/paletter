@@ -43,9 +43,9 @@ fn generate_lut(
     var index: usize = 0;
 
     for (palette.data) |color| {
-        if (colormap.get(color)) |_| {
-            continue;
-        }
+        // if (colormap.get(color)) |_| {
+        //     continue;
+        // }
 
         try colormap.put(color, true);
 
