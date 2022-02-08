@@ -8,23 +8,6 @@ pub const PpmData = struct {
     depth: u32,
     data: []Color,
 
-    pub fn init(
-        self: *PpmData,
-        allocator: std.mem.Allocator,
-        width: u32,
-        height: u32,
-        depth: u32,
-        data: []Color,
-    ) !void {
-        self.* = PpmData{
-            .allocator = allocator,
-            .width = width,
-            .height = height,
-            .depth = depth,
-            .data = data,
-        };
-    }
-
     pub fn deinit(self: *const PpmData) void {
         self.allocator.free(self.data);
     }
@@ -138,8 +121,15 @@ pub fn parse_file(allocator: std.mem.Allocator, file: std.fs.File) !PpmData {
 
     try convert_data_to_colors(color_data, colors);
 
-    var result: PpmData = undefined;
-    try result.init(allocator, width, height, depth, colors);
+    // var result: PpmData = undefined;
+    // try result.init(allocator, width, height, depth, colors);
+    var result = PpmData{
+        .allocator = allocator,
+        .width = width,
+        .height = height,
+        .depth = depth,
+        .data = colors,
+    };
 
     return result;
 }

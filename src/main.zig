@@ -43,10 +43,6 @@ fn generate_lut(
     var index: usize = 0;
 
     for (palette.data) |color| {
-        // if (colormap.get(color)) |_| {
-        //     continue;
-        // }
-
         try colormap.put(color, true);
 
         var i = n_shades;
@@ -65,14 +61,13 @@ fn generate_lut(
         }
     }
 
-    var result: PpmData = undefined;
-    try result.init(
-        allocator,
-        n_shades,
-        palette.width * palette.height,
-        palette.depth,
-        lut,
-    );
+    var result = PpmData{
+        .allocator = allocator,
+        .width = n_shades,
+        .height = palette.width * palette.height,
+        .depth = palette.depth,
+        .data = lut,
+    };
 
     return result;
 }
