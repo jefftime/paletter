@@ -1,5 +1,5 @@
 const std = @import("std");
-const Color = @import("image_types.zig").Color;
+const Color = @import("Color.zig");
 const ppm = @import("ppm.zig");
 const PpmData = ppm.PpmData;
 const opts = @import("opts.zig");

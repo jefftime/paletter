@@ -1,5 +1,5 @@
 const std = @import("std");
-const Color = @import("image_types.zig").Color;
+const Color = @import("Color.zig");
 
 pub const PpmData = struct {
     allocator: std.mem.Allocator,
@@ -25,7 +25,7 @@ fn validate_header(reader: anytype) !u8 {
 
 fn skip_whitespace_and_comments(in_ch: u8, reader: anytype) !u8 {
     var ch = in_ch;
-    while (std.ascii.isSpace(ch) or ch == '#') : (ch = try reader.readByte()) {
+    while (std.ascii.isWhitespace(ch) or ch == '#') : (ch = try reader.readByte()) {
         var comment_buf: [128]u8 = undefined;
 
         if (ch == '#') {
